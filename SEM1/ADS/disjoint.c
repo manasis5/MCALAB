@@ -3,7 +3,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 struct node {
-	struct node *rep;
+	 struct node *rep;
 	struct node *next;
 	int data;
 }*heads[50],*tails[50];
