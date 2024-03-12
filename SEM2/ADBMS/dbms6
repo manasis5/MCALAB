@@ -1,0 +1,245 @@
+//1
+mysql> use m;
+Database changed
+mysql> create table salesman(salesman_id int primary key,name varchar(50),city varchar(50),commission float(50));
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> insert into salesman values(5001,"Manasi","Newyork",0.15);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from salesman;
++-------------+--------+---------+------------+
+| salesman_id | name   | city    | commission |
++-------------+--------+---------+------------+
+|        5001 | Manasi | Newyork |       0.15 |
++-------------+--------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into salesman values(5002,"Megha","paris","0.13");
+Query OK, 1 row affected (0.06 sec)
+
+mysql> delete from  salesman where salesman_id=5002;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into salesman values(5002,"Megha","paris",0.13);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into salesman values(5003,"Meenakshi","London",0.11);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into salesman values(5004,"aleena","paris",0.14);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into salesman values(5005,"alex","rome",0.13);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into salesman values(5006,"Paul","san jose",0.12);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from salesman;
++-------------+-----------+----------+------------+
+| salesman_id | name      | city     | commission |
++-------------+-----------+----------+------------+
+|        5001 | Manasi    | Newyork  |       0.15 |
+|        5002 | Megha     | paris    |       0.13 |
+|        5003 | Meenakshi | London   |       0.11 |
+|        5004 | aleena    | paris    |       0.14 |
+|        5005 | alex      | rome     |       0.13 |
+|        5006 | Paul      | san jose |       0.12 |
++-------------+-----------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> create view newyorkstaff as slect * from salesman where city="newyork";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect * from salesman where city="newyork"' at line 1
+mysql> create view newyorkstaff as select * from salesman where city="newyork";
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> select * from newyorkstaff;
++-------------+--------+---------+------------+
+| salesman_id | name   | city    | commission |
++-------------+--------+---------+------------+
+|        5001 | Manasi | Newyork |       0.15 |
++-------------+--------+---------+------------+
+1 row in set (0.00 sec)
+
+mysql> create table customer(customer_id int primary key,cust_name varchar(50),city varchar(50),grade int,salesman_id int);
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> alter table customer add foreign key (salesman_id)references salesman(salesman_id);
+Query OK, 0 rows affected (1.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
+Empty set (0.00 sec)
+
+mysql> desc customer;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| customer_id | int(11)     | NO   | PRI | NULL    |       |
+| cust_name   | varchar(50) | YES  |     | NULL    |       |
+| city        | varchar(50) | YES  |     | NULL    |       |
+| grade       | int(11)     | YES  |     | NULL    |       |
+| salesman_id | int(11)     | YES  | MUL | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> insert into customer values(3002,"anamika","newyork",100,5001);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into customer values(3007,"anju","newyork",200,5001);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into customer values(3005,"brad","california",200,5002);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into customer values(3008,"graham","london",300,5002);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into customer values(3004,"fabian","paris",300,5006);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into customer values(3009,"geoff","berlin",100,5003);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from customer;
++-------------+-----------+------------+-------+-------------+
+| customer_id | cust_name | city       | grade | salesman_id |
++-------------+-----------+------------+-------+-------------+
+|        3002 | anamika   | newyork    |   100 |        5001 |
+|        3004 | fabian    | paris      |   300 |        5006 |
+|        3005 | brad      | california |   200 |        5002 |
+|        3007 | anju      | newyork    |   200 |        5001 |
+|        3008 | graham    | london     |   300 |        5002 |
+|        3009 | geoff     | berlin     |   100 |        5003 |
++-------------+-----------+------------+-------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> select * from salesman;
++-------------+-----------+----------+------------+
+| salesman_id | name      | city     | commission |
++-------------+-----------+----------+------------+
+|        5001 | Manasi    | Newyork  |       0.15 |
+|        5002 | Megha     | paris    |       0.13 |
+|        5003 | Meenakshi | London   |       0.11 |
+|        5004 | aleena    | paris    |       0.14 |
+|        5005 | alex      | rome     |       0.13 |
+|        5006 | Paul      | san jose |       0.12 |
++-------------+-----------+----------+------------+
+6 rows in set (0.00 sec)
+
+mysql> insert into customer values(3003,"jozy","moscow",200,5006);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into customer values(3001,"jozyn","london",100,5005);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from customer;
++-------------+-----------+------------+-------+-------------+
+| customer_id | cust_name | city       | grade | salesman_id |
++-------------+-----------+------------+-------+-------------+
+|        3001 | jozyn     | london     |   100 |        5005 |
+|        3002 | anamika   | newyork    |   100 |        5001 |
+|        3003 | jozy      | moscow     |   200 |        5006 |
+|        3004 | fabian    | paris      |   300 |        5006 |
+|        3005 | brad      | california |   200 |        5002 |
+|        3007 | anju      | newyork    |   200 |        5001 |
+|        3008 | graham    | london     |   300 |        5002 |
+|        3009 | geoff     | berlin     |   100 |        5003 |
++-------------+-----------+------------+-------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> create view gradecount(grade,number) as select grade,count(*) from customer group by grade;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select * from gradecount;
++-------+--------+
+| grade | number |
++-------+--------+
+|   100 |      3 |
+|   200 |      3 |
+|   300 |      2 |
++-------+--------+
+3 rows in set (0.05 sec)
+
+mysql> create table order(order_no int primary key,purch_amt float(50),order_date date,customer_id int,salesman_id int);
+ CREATE TABLE orders(      order_no int primary key,      purch_amt float(50),      order_date DATE,      customer_id int,      salesman_id int  );
+Query OK, 0 rows affected (0.98 sec)
+
+mysql> desc orders;
++-------------+---------+------+-----+---------+-------+
+| Field       | Type    | Null | Key | Default | Extra |
++-------------+---------+------+-----+---------+-------+
+| order_no    | int(11) | NO   | PRI | NULL    |       |
+| purch_amt   | double  | YES  |     | NULL    |       |
+| order_date  | date    | YES  |     | NULL    |       |
+| customer_id | int(11) | YES  |     | NULL    |       |
+| salesman_id | int(11) | YES  |     | NULL    |       |
++-------------+---------+------+-----+---------+-------+
+5 rows in set (0.09 sec)
+
+mysql> insert into orders values(7001,150.5,'2012-10-05',3005,5002);
+Query OK, 1 row affected (0.24 sec)
+
+mysql> insert into orders values(7009,270.65,'2012-09-10',3005,5002);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into orders values(7002,65.26,'2012-08-05',3002,5001);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into orders values(7004,110.5,'2012-10-05',3009,5003);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into orders values(7007,940.5,'2012-09-10',3005,5002);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into orders values(70010,1983.45,'2012-10-10',3004,5006);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into orders values(70013,183.45,'2012-08-17',3008,5001);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from orders;
++----------+-----------+------------+-------------+-------------+
+| order_no | purch_amt | order_date | customer_id | salesman_id |
++----------+-----------+------------+-------------+-------------+
+|     7001 |     150.5 | 2012-10-05 |        3005 |        5002 |
+|     7002 |     65.26 | 2012-08-05 |        3002 |        5001 |
+|     7004 |     110.5 | 2012-10-05 |        3009 |        5003 |
+|     7007 |     940.5 | 2012-09-10 |        3005 |        5002 |
+|     7009 |    270.65 | 2012-09-10 |        3005 |        5002 |
+|    70010 |   1983.45 | 2012-10-10 |        3004 |        5006 |
+|    70013 |    183.45 | 2012-08-17 |        3008 |        5001 |
++----------+-----------+------------+-------------+-------------+
+7 rows in set (0.03 sec)
+mysql> create view ordersss as select salesman_id,order_no,customer_id from orders where order_date in('2012-08-17','2012-10-10');
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> select * from ordersss;
++-------------+----------+-------------+
+| salesman_id | order_no | customer_id |
++-------------+----------+-------------+
+|        5006 |    70010 |        3004 |
+|        5001 |    70013 |        3008 |
++-------------+----------+-------------+
+2 rows in set (0.00 sec)
+mysql> create view elitsalesman as select b.order_date,a.salesman_id,a.name from salesman a,orders b where a.salesman_id=b.salesman_id and b.purch_amt=(select max(purch_amt)  from orders c where c.order_date=b.order_date);
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from elitsalesman;
++------------+-------------+--------+
+| order_date | salesman_id | name   |
++------------+-------------+--------+
+| 2012-10-05 |        5002 | Megha  |
+| 2012-08-05 |        5001 | Manasi |
+| 2012-09-10 |        5002 | Megha  |
+| 2012-10-10 |        5006 | Paul   |
+| 2012-08-17 |        5001 | Manasi |
++------------+-------------+--------+
+5 rows in set (0.09 sec)
+
+mysql> 
+
+
+
