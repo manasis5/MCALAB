@@ -1,0 +1,24 @@
+mysql> delimiter //
+mysql> create procedure checkoddoreven(in a int)
+    -> begin
+    -> if mod(a,2) = 0 then
+    -> select 'Even' as result;
+    -> else
+    -> select 'odd' as result;
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> delimiter ;
+mysql> call checkoddoreven(2);
++--------+
+| result |
++--------+
+| Even   |
++--------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
+

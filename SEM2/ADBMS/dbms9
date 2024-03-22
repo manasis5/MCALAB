@@ -1,0 +1,47 @@
+mysql> create database d;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use d;
+Database changed
+mysql> create table student(stdid int,stdname varchar(50),age int)
+    -> ^C
+mysql> create table student(stdid int,stdname varchar(50),age int);
+Query OK, 0 rows affected (1.32 sec)
+
+mysql> insert into student(1,megha,21);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,megha,21)' at line 1
+mysql> insert into student values(1,megha,21);
+ERROR 1054 (42S22): Unknown column 'megha' in 'field list'
+mysql> insert into student values(1',megha',21);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '',megha',21)' at line 1
+mysql> insert into student values(1','megha',21);
+    '> ^C
+mysql> insert into student values(1,'megha',21);
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into student values(2,'menakshi',22);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> delimiter //
+mysql> create procedure display()
+    -> begin
+    -> select * from student;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> delimiter;
+    -> delimiter;^C
+mysql> delimiter ;
+mysql> call display();
++-------+----------+------+
+| stdid | stdname  | age  |
++-------+----------+------+
+|     1 | megha    |   21 |
+|     2 | menakshi |   22 |
++-------+----------+------+
+2 rows in set (0.03 sec)
+
+Query OK, 0 rows affected (0.03 sec)
+
+
