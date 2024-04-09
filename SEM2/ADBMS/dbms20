@@ -1,0 +1,40 @@
+> use employee
+switched to db employee
+> db.createCollection("empl")
+{ "ok" : 1 }
+> db.empl.insertMany([{"Empno":1,"Name":"John Doe","Salary":60000,"Role":"Manager"},{"Empno":2,"Name":"Alice Smith","Salary":50000,"Role":"Developer"}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("6615070168ab08f895a68c30"),
+		ObjectId("6615070168ab08f895a68c31")
+	]
+}
+> db.empl.find().pretty()
+{
+	"_id" : ObjectId("6615070168ab08f895a68c30"),
+	"Empno" : 1,
+	"Name" : "John Doe",
+	"Salary" : 60000,
+	"Role" : "Manager"
+}
+{
+	"_id" : ObjectId("6615070168ab08f895a68c31"),
+	"Empno" : 2,
+	"Name" : "Alice Smith",
+	"Salary" : 55000,
+	"Role" : "Developer"
+}
+> db.empl.find({"Role":"Manager"}).pretty()
+{
+	"_id" : ObjectId("6615070168ab08f895a68c30"),
+	"Empno" : 1,
+	"Name" : "John Doe",
+	"Salary" : 60000,
+	"Role" : "Manager"
+}
+> 
+> db.empl.updateOne({"Name":"Alice Smith"},{$set:{"Salary":55000}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+
