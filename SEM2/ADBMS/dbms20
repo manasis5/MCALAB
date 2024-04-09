@@ -1,40 +1,49 @@
-> use employee
-switched to db employee
-> db.createCollection("empl")
-{ "ok" : 1 }
-> db.empl.insertMany([{"Empno":1,"Name":"John Doe","Salary":60000,"Role":"Manager"},{"Empno":2,"Name":"Alice Smith","Salary":50000,"Role":"Developer"}])
+> use test
+switched to db test
+> db.createCollection("student")
 {
-	"acknowledged" : true,
-	"insertedIds" : [
-		ObjectId("6615070168ab08f895a68c30"),
-		ObjectId("6615070168ab08f895a68c31")
-	]
+	"ok" : 0,
+	"errmsg" : "a collection 'test.student' already exists",
+	"code" : 48,
+	"codeName" : "NamespaceExists"
 }
-> db.empl.find().pretty()
+> db.student.insert({"roll no":101,"name":"alex","branch":"MCA"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({"roll no":102,"name":"alen","branch":"MBA"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({"roll no":103,"name":"aleena","branch":"BCA"})
+WriteResult({ "nInserted" : 1 })
+
+> db.student.find().pretty()
 {
-	"_id" : ObjectId("6615070168ab08f895a68c30"),
-	"Empno" : 1,
-	"Name" : "John Doe",
-	"Salary" : 60000,
-	"Role" : "Manager"
+	"_id" : ObjectId("6614cb92af9776740da80ed1"),
+	"rollno" : 101,
+	"name" : "Alex",
+	"branch" : "MCA"
 }
 {
-	"_id" : ObjectId("6615070168ab08f895a68c31"),
-	"Empno" : 2,
-	"Name" : "Alice Smith",
-	"Salary" : 55000,
-	"Role" : "Developer"
+	"_id" : ObjectId("6614cb92af9776740da80ed2"),
+	"rollno" : 102,
+	"name" : "Maya",
+	"branch" : "MCA"
 }
-> db.empl.find({"Role":"Manager"}).pretty()
 {
-	"_id" : ObjectId("6615070168ab08f895a68c30"),
-	"Empno" : 1,
-	"Name" : "John Doe",
-	"Salary" : 60000,
-	"Role" : "Manager"
+	"_id" : ObjectId("66151124cf2420e66aad03ed"),
+	"roll no" : 101,
+	"name" : "alex",
+	"branch" : "MCA"
+}
+{
+	"_id" : ObjectId("66151137cf2420e66aad03ee"),
+	"roll no" : 102,
+	"name" : "alen",
+	"branch" : "MBA"
+}
+{
+	"_id" : ObjectId("66151149cf2420e66aad03ef"),
+	"roll no" : 103,
+	"name" : "aleena",
+	"branch" : "BCA"
 }
 > 
-> db.empl.updateOne({"Name":"Alice Smith"},{$set:{"Salary":55000}})
-{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
-
 
