@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+
+void main() { runApp(MyApp()); }
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: MyHomePage()
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Flutter Row Example"),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children:<Widget>[
+            Container(
+              margin: EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(8.0),
+              decoration:BoxDecoration(
+                  borderRadius:BorderRadius.circular(8),
+                  color:Colors.cyanAccent
+              ),
+              child: Text("flutter",style: TextStyle(color:Colors.pink,fontSize:25),),
+            ),
+            Container(
+              margin: EdgeInsets.all(15.0),
+              padding: EdgeInsets.all(8.0),
+              decoration:BoxDecoration(
+                  borderRadius:BorderRadius.circular(8),
+                  color:Colors.black
+              ),
+              child: Text("JAVA",style: TextStyle(color:Colors.pink,fontSize:25),),
+            ),
+            Container(
+              margin: EdgeInsets.all(12.0),
+              padding: EdgeInsets.all(8.0),
+              decoration:BoxDecoration(
+                  borderRadius:BorderRadius.circular(8),
+                  color:Colors.yellow
+              ),
+              child: Text("Cpp",style: TextStyle(color:Colors.pink,fontSize:25),),
+            )
+          ]
+      )
+    );
+  }
+}
