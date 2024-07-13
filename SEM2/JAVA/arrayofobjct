@@ -1,0 +1,41 @@
+import java.util.Scanner;
+public class employee{
+    int eno,esalary;
+    String ename;
+    public void edata(){
+        Scanner in = new Scanner(System.in);
+        System.out.println("enter the employee number");
+        eno=in.nextInt();
+        System.out.println("enter the employee name");
+        ename=in.next();
+        System.out.println("enter the employee salary");
+        esalary=in.nextInt();
+    }
+    void data()
+{
+    System.out.println("employee number"+eno);
+     System.out.println("employee name"+ename);
+      System.out.println("employee salary"+esalary);
+}
+public static void main(String args[]){
+ Scanner in = new Scanner(System.in);
+        System.out.println("enter the number of employee");
+        int n=in.nextInt();
+        employee a[]=new employee [n];
+        System.out.println("enter the  employee details");
+        for(int i=0;i<n;i++)
+        {
+            a[i]=new employee();
+            a[i].edata();
+            
+        }
+         System.out.println("enter the  employee details");
+          System.out.println("enter the id of the  employee to display");
+         int k=in.nextInt();
+        for(int i=0;i<n;i++){
+        if(k==a[i].eno){
+        a[i].data();
+}
+}
+}
+}
